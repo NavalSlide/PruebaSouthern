@@ -1,10 +1,27 @@
-FROM python:3.10.0
+# Stage 1: builder
+FROM python:3-alpine AS builder
 
-# Copy the requirements file
+WORKDIR /app
+
+RUN python3 -m venv venv
+ENV VIRTUAL_ENV=/app/venv
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+
 COPY requirements.txt .
+RUN pip install -r requirements.txt
 
-# Install the dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Stage 2: runner
+FROM python:3-alpine AS runner
 
-# Update the CMD to run the Django development server
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+ENV VIRTUAL_ENV=/app/venv
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+ENV PORT=8000
+
+WORKDIR /app
+
+COPY --from=builder /app/venv venv
+COPY . .  
+
+EXPOSE ${PORT}
+
+CMD gunicorn --bind :${PORT} --workers 2 example_django.wsgi
