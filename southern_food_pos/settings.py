@@ -32,6 +32,7 @@ ALLOWED_HOSTS = [
     'c839-157-100-107-12.ngrok-free.app',
     'a8c4-157-100-107-14.ngrok-free.app',  # Add your new ngrok URL here
     '21b9-157-100-107-14.ngrok-free.app',  # Add this new ngrok URL
+    'national-chelsey-navalslide-024c4b2e.koyeb.app',
 ]
 
 # Especifica el modelo de usuario personalizado
