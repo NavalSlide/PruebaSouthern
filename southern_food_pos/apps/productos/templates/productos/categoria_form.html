@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Contenedor principal con ancho máximo y padding -->
+<div class="max-w-4xl mx-auto p-6">
+    <!-- Tarjeta con fondo blanco, bordes redondeados y sombra -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <!-- Título de la sección -->
+        <h2 class="text-2xl font-semibold mb-4">Nueva Categoría</h2>
+        <!-- Formulario para crear una nueva categoría -->
+        <form method="post">
+            {% csrf_token %}
+            <!-- Contenedor para los campos del formulario -->
+            <div class="space-y-4">
+                <!-- Campo para el nombre de la categoría -->
+                <div class="form-group">
+                    <label class="block text-sm font-medium mb-1">{{ form.nombre.label }}</label>
+                    {{ form.nombre }}
+                </div>
+
+            </div>
+            <!-- Botones de acción -->
+            <div class="mt-6 flex justify-end space-x-3">
+                <!-- Botón para cancelar y volver a la lista -->
+                <a href="{% url 'productos:lista' %}" class="btn-secondary">
+                    Cancelar
+                </a>
+                <!-- Botón para enviar el formulario -->
+                <button type="submit" class="btn-primary">
+                    Crear Categoría
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
